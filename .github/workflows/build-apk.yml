@@ -45,11 +45,15 @@ jobs:
           echo "=== Debug APK ==="
           ls -la app/build/outputs/apk/debug/ 2>&1 || echo "no debug dir"
           find app/build -name "*.apk" 2>&1 || true
+          # 也拷贝一份到根目录方便 artifact 上传
+          mkdir -p dist
+          find app/build -name "*.apk" -exec cp {} dist/ \;
+          ls -la dist/ 2>&1
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: GoalDay-debug-apk
-          path: app/build/outputs/apk/debug/*.apk
+          path: dist/*.apk
           if-no-files-found: error
           retention-days: 30
