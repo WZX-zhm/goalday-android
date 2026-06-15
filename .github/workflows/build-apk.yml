@@ -40,20 +40,20 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tail -100
 
-      - name: Verify APK files
+      - name: Locate and copy APK
         run: |
-          echo "=== Debug APK ==="
-          ls -la app/build/outputs/apk/debug/ 2>&1 || echo "no debug dir"
-          find app/build -name "*.apk" 2>&1 || true
-          # 也拷贝一份到根目录方便 artifact 上传
-          mkdir -p dist
-          find app/build -name "*.apk" -exec cp {} dist/ \;
-          ls -la dist/ 2>&1
+          set -eux
+          find app/build -name "*.apk" -type f
+          mkdir -p output
+          find app/build -name "*.apk" -type f -exec cp -v {} output/ \;
+          ls -la output/
+          # 验证文件存在
+          test -n "$(ls -A output/)" || (echo "no apk found!"; exit 1)
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: GoalDay-debug-apk
-          path: dist/*.apk
+          path: output/
           if-no-files-found: error
           retention-days: 30
