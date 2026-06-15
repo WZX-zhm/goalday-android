@@ -25,48 +25,30 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Accept Android SDK licenses
-        run: |
-          yes | sdkmanager --licenses > /dev/null 2>&1 || true
-
-      # 确保 gradle-wrapper.jar 存在（本地可能没有提交这个二进制文件）
-      - name: Validate & Fix Gradle Wrapper
-        uses: gradle/actions/wrapper-validation@v4
-        continue-on-error: true
-
-      - name: Ensure Gradle Wrapper JAR exists
-        run: |
-          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
-            echo "gradle-wrapper.jar not found, generating..."
-            curl -sL "https://services.gradle.org/distributions/gradle-8.4-bin.zip" -o /tmp/gradle.zip
-            unzip -q /tmp/gradle.zip gradle-8.4/lib/gradle-launcher*.jar -d /tmp/
-            mkdir -p gradle/wrapper
-            # 从 Gradle 发行包提取 wrapper jar
-            cd /tmp/gradle-8.4
-            java -p lib/gradle-launcher*.jar org.gradle.wrapper.GradleWrapperMain --help 2>/dev/null || true
-            echo "Downloading gradle-wrapper.jar directly..."
-            curl -sL "https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradle/wrapper/gradle-wrapper.jar" \
-              -o gradle/wrapper/gradle-wrapper.jar
-            chmod +x gradlew
-          fi
-          ls -la gradle/wrapper/
+        run: yes | sdkmanager --licenses > /dev/null 2>&1 || true
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tail -50
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
 
-      - name: Locate APK files
-        id: locate
+      - name: Build Release APK (unsigned)
+        run: ./gradlew assembleRelease --no-daemon --stacktrace
+        continue-on-error: true
+
+      - name: Verify APK files
         run: |
-          echo "debug_apk=$(find app/build/outputs/apk/debug -name '*.apk' | head -1)" >> $GITHUB_OUTPUT
-          echo "release_apk=$(find app/build/outputs/apk/release -name '*.apk' 2>/dev/null | head -1 || echo '')" >> $GITHUB_OUTPUT
+          echo "=== Debug APK ==="
+          find app/build/outputs/apk/debug -name "*.apk" -exec ls -la {} \; || true
+          echo "=== Release APK ==="
+          find app/build/outputs/apk/release -name "*.apk" -exec ls -la {} \; 2>/dev/null || echo "no release apk"
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: GoalDay-debug-apk
-          path: ${{ steps.locate.outputs.debug_apk }}
+          path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
           retention-days: 30
 
@@ -74,6 +56,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: GoalDay-release-apk
-          path: ${{ steps.locate.outputs.release_apk }}
+          path: app/build/outputs/apk/release/*.apk
           if-no-files-found: ignore
           retention-days: 30
