@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GoalDay</string>
+
+    <!-- 底部导航 -->
+    <string name="tab_schedule">日程</string>
+    <string name="tab_diary">日记</string>
+    <string name="tab_habit">打卡</string>
+
+    <!-- 日程 -->
+    <string name="schedule_title">本周计划</string>
+    <string name="schedule_add">添加事项</string>
+    <string name="schedule_time">时间</string>
+    <string name="schedule_content">事项内容</string>
+    <string name="schedule_todo_hint">待办清单（点击直接加入日程）</string>
+
+    <!-- 日记 -->
+    <string name="diary_title">今日日记</string>
+    <string name="diary_mood">今日心情</string>
+    <string name="diary_content">写下今天的故事…</string>
+    <string name="diary_completed">今日完成</string>
+    <string name="diary_save">保存</string>
+
+    <!-- 打卡 -->
+    <string name="habit_title">目标追踪</string>
+    <string name="habit_add">新建目标</string>
+    <string name="habit_name">目标名称</string>
+    <string name="habit_icon">图标</string>
+    <string name="habit_streak">连续 %1$d 天</string>
+    <string name="habit_check">打卡</string>
+
+    <!-- 通用 -->
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="delete">删除</string>
+    <string name="empty_todo">还没有待办事项</string>
+    <string name="empty_habit">还没有目标，点击右下角创建</string>
+</resources>

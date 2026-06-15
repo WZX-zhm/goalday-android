@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_schedule"
+        android:icon="@drawable/ic_schedule"
+        android:title="@string/tab_schedule" />
+    <item
+        android:id="@+id/tab_diary"
+        android:icon="@drawable/ic_diary"
+        android:title="@string/tab_diary" />
+    <item
+        android:id="@+id/tab_habit"
+        android:icon="@drawable/ic_habit"
+        android:title="@string/tab_habit" />
+</menu>

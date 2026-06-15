@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="database" path="goalday.db"/>
+        <include domain="sharedpref" path="goalday.xml"/>
+    </cloud-backup>
+</data-extraction-rules>

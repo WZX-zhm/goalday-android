@@ -1,0 +1,19 @@
+# 重要：编译前必须先生成 gradle-wrapper.jar
+# GitHub Actions 在 build-apk.yml 步骤 "Build Debug APK" 时会自动执行
+# 本地第一次编译请运行： gradle wrapper
+
+# GoalDay Android 工程 Git 忽略文件
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+.DS_Store
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.keystore
+*.jks
+release/

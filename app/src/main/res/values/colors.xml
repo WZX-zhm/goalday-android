@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#5C6BC0</color>
+    <color name="primary_dark">#3949AB</color>
+    <color name="primary_light">#9FA8DA</color>
+    <color name="accent">#FF7043</color>
+    <color name="bg">#F5F5F7</color>
+    <color name="card">#FFFFFF</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="success">#66BB6A</color>
+    <color name="warning">#FFA726</color>
+
+    <color name="mood_happy">#FFD54F</color>
+    <color name="mood_calm">#81D4FA</color>
+    <color name="mood_excited">#FF8A65</color>
+    <color name="mood_tired">#B0BEC5</color>
+    <color name="mood_satisfied">#A5D6A7</color>
+    <color name="mood_anxious">#CE93D8</color>
+    <color name="mood_sad">#90CAF9</color>
+</resources>
